@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marcus ❤️ Degnay</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:linear-gradient(135deg,#ff4e8a,#ff7eb3);
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
+
+.container{
+padding:25px;
+max-width:600px;
+margin:auto;
+}
+
+h1{
+font-size:32px;
+margin-bottom:10px;
+}
+
+.sub{
+font-size:18px;
+opacity:0.9;
+}
+
+.contador{
+margin:20px 0;
+font-size:22px;
+font-weight:bold;
+}
+
+button{
+background:white;
+color:#ff4e8a;
+border:none;
+padding:15px 30px;
+font-size:18px;
+border-radius:40px;
+margin-top:20px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+.mensagem{
+display:none;
+margin-top:25px;
+font-size:19px;
+line-height:1.6;
+}
+
+.galeria{
+margin-top:25px;
+}
+
+.galeria img{
+width:100%;
+border-radius:15px;
+margin-top:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.4);
+}
+
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:22px;
+animation: subir 6s linear infinite;
+opacity:0.8;
+}
+
+@keyframes subir{
+
+0%{
+transform:translateY(0);
+opacity:0;
+}
+
+20%{
+opacity:1;
+}
+
+100%{
+transform:translateY(-110vh);
+opacity:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Marcus ❤️ Degnay</h1>
+
+<p class="sub">
+3 meses de nós dois
+</p>
+
+<div class="contador" id="contador"></div>
+
+<button onclick="surpresa()">
+Clique para uma surpresa ❤️
+</button>
+
+<div class="mensagem" id="msg">
+
+Degnay,
+
+Desde o dia 13 de dezembro minha vida ficou mais bonita.
+
+Esses 3 meses com você foram cheios de momentos especiais,
+risadas e carinho.
+
+Obrigado por fazer parte da minha vida.
+
+Que venham muitos meses,
+anos
+e histórias juntos.
+
+❤️
+
+</div>
+
+<div class="galeria">
+
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+<img src="foto4.jpg">
+
+</div>
+
+</div>
+
+<audio id="musica">
+
+<source src="musica.mp3" type="audio/mpeg">
+
+</audio>
+
+<script>
+
+var inicio = new Date("2025-12-13 00:00:00");
+
+function atualizarContador(){
+
+var agora = new Date();
+
+var diff = agora - inicio;
+
+var dias = Math.floor(diff / (1000*60*60*24));
+var horas = Math.floor((diff / (1000*60*60)) % 24);
+var minutos = Math.floor((diff / (1000*60)) % 60);
+
+document.getElementById("contador").innerHTML =
+"Juntos há " + dias + " dias, " +
+horas + "h e " +
+minutos + "min ❤️";
+
+}
+
+setInterval(atualizarContador,1000);
+
+atualizarContador();
+
+function surpresa(){
+
+document.getElementById("msg").style.display="block";
+
+document.getElementById("musica").play();
+
+}
+
+setInterval(function(){
+
+var heart = document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML="❤️";
+
+heart.style.left = Math.random()*100+"%";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),6000);
+
+},400);
+
+</script>
+
+</body>
+
+</html>
