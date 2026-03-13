@@ -14,7 +14,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
@@ -24,21 +24,42 @@ text-align:center;
 overflow-x:hidden;
 }
 
-.container{
+/* tela inicial */
+
+.intro{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}
+
+.intro h1{
+font-size:34px;
+margin-bottom:20px;
+}
+
+.start{
+background:white;
+color:#ff4e8a;
+border:none;
+padding:15px 35px;
+border-radius:40px;
+font-size:20px;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* conteúdo principal */
+
+.main{
+display:none;
 padding:25px;
-max-width:600px;
+max-width:650px;
 margin:auto;
 }
 
-h1{
-font-size:32px;
-margin-bottom:10px;
-}
-
-.sub{
-font-size:18px;
-opacity:0.9;
-}
+/* contador */
 
 .contador{
 margin:20px 0;
@@ -46,45 +67,54 @@ font-size:22px;
 font-weight:bold;
 }
 
-button{
-background:white;
-color:#ff4e8a;
-border:none;
-padding:15px 30px;
-font-size:18px;
-border-radius:40px;
+/* slider */
+
+.slider{
+position:relative;
 margin-top:20px;
-cursor:pointer;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 
-button:hover{
-transform:scale(1.05);
-}
-
-.mensagem{
-display:none;
-margin-top:25px;
-font-size:19px;
-line-height:1.6;
-}
-
-.galeria{
-margin-top:25px;
-}
-
-.galeria img{
+.slider img{
 width:100%;
 border-radius:15px;
-margin-top:12px;
-box-shadow:0 8px 25px rgba(0,0,0,0.4);
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
+
+/* mensagem */
+
+.mensagem{
+margin-top:25px;
+font-size:20px;
+line-height:1.6;
+min-height:120px;
+}
+
+/* player */
+
+.player{
+margin-top:20px;
+background:rgba(255,255,255,0.15);
+padding:15px;
+border-radius:15px;
+backdrop-filter:blur(10px);
+}
+
+.player button{
+background:white;
+border:none;
+padding:10px 20px;
+border-radius:30px;
+cursor:pointer;
+color:#ff4e8a;
+}
+
+/* corações */
 
 .heart{
 position:fixed;
-bottom:-20px;
+bottom:-10px;
 font-size:22px;
-animation: subir 6s linear infinite;
+animation:subir 6s linear infinite;
 opacity:0.8;
 }
 
@@ -112,45 +142,33 @@ opacity:0;
 
 <body>
 
-<div class="container">
+<div class="intro">
 
 <h1>Marcus ❤️ Degnay</h1>
 
-<p class="sub">
-3 meses de nós dois
-</p>
-
-<div class="contador" id="contador"></div>
-
-<button onclick="surpresa()">
-Clique para uma surpresa ❤️
+<button class="start" onclick="iniciar()">
+Clique para ver sua surpresa
 </button>
-
-<div class="mensagem" id="msg">
-
-Degnay,
-
-Desde o dia 13 de dezembro minha vida ficou mais bonita.
-
-Esses 3 meses com você foram cheios de momentos especiais,
-risadas e carinho.
-
-Obrigado por fazer parte da minha vida.
-
-Que venham muitos meses,
-anos
-e histórias juntos.
-
-❤️
 
 </div>
 
-<div class="galeria">
+<div class="main" id="main">
 
-<img src="foto1.jpg">
-<img src="foto2.jpg">
-<img src="foto3.jpg">
-<img src="foto4.jpg">
+<h2>3 meses de nós dois ❤️</h2>
+
+<div class="contador" id="contador"></div>
+
+<div class="slider">
+
+<img id="foto" src="foto1.jpg">
+
+</div>
+
+<div class="mensagem" id="mensagem"></div>
+
+<div class="player">
+
+<button onclick="toggleMusica()">🎵 Música</button>
 
 </div>
 
@@ -164,46 +182,123 @@ e histórias juntos.
 
 <script>
 
-var inicio = new Date("2025-12-13 00:00:00");
+/* contador */
 
-function atualizarContador(){
+var inicio = new Date("2025-12-13");
+
+function atualizar(){
 
 var agora = new Date();
 
 var diff = agora - inicio;
 
-var dias = Math.floor(diff / (1000*60*60*24));
-var horas = Math.floor((diff / (1000*60*60)) % 24);
-var minutos = Math.floor((diff / (1000*60)) % 60);
+var dias = Math.floor(diff/(1000*60*60*24));
+var horas = Math.floor((diff/(1000*60*60))%24);
+var min = Math.floor((diff/(1000*60))%60);
 
 document.getElementById("contador").innerHTML =
-"Juntos há " + dias + " dias, " +
-horas + "h e " +
-minutos + "min ❤️";
+"Juntos há "+dias+" dias, "+horas+"h e "+min+"min ❤️";
 
 }
 
-setInterval(atualizarContador,1000);
+setInterval(atualizar,1000);
 
-atualizarContador();
+atualizar();
 
-function surpresa(){
+/* iniciar */
 
-document.getElementById("msg").style.display="block";
+function iniciar(){
 
-document.getElementById("musica").play();
+document.querySelector(".intro").style.display="none";
+
+document.getElementById("main").style.display="block";
+
+digitar();
 
 }
+
+/* efeito digitação */
+
+var texto = `Degnay,
+
+Desde o dia 13 de dezembro minha vida ficou mais bonita.
+
+Esses três meses com você foram cheios de momentos especiais,
+risadas e carinho.
+
+Obrigado por fazer parte da minha vida.
+
+Que nossa história continue crescendo
+com amor, parceria e felicidade.
+
+❤️`;
+
+var i=0;
+
+function digitar(){
+
+if(i < texto.length){
+
+document.getElementById("mensagem").innerHTML += texto.charAt(i);
+
+i++;
+
+setTimeout(digitar,40);
+
+}
+
+}
+
+/* slider fotos */
+
+var fotos=[
+"foto1.jpg",
+"foto2.jpg",
+"foto3.jpg",
+"foto4.jpg"
+];
+
+var f=0;
 
 setInterval(function(){
 
-var heart = document.createElement("div");
+f++;
+
+if(f>=fotos.length){f=0;}
+
+document.getElementById("foto").src=fotos[f];
+
+},3500);
+
+/* musica */
+
+function toggleMusica(){
+
+var m=document.getElementById("musica");
+
+if(m.paused){
+
+m.play();
+
+}else{
+
+m.pause();
+
+}
+
+}
+
+/* corações */
+
+setInterval(function(){
+
+var heart=document.createElement("div");
 
 heart.className="heart";
 
 heart.innerHTML="❤️";
 
-heart.style.left = Math.random()*100+"%";
+heart.style.left=Math.random()*100+"%";
 
 document.body.appendChild(heart);
 
