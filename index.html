@@ -14,70 +14,86 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+font-family: 'Segoe UI', sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#ff4e8a,#ff7eb3);
+background:#0f0f1a;
 color:white;
-text-align:center;
 overflow-x:hidden;
 }
 
-/* tela inicial */
+/* fundo partículas */
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+/* intro */
 
 .intro{
 height:100vh;
 display:flex;
-align-items:center;
-justify-content:center;
 flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
 }
 
 .intro h1{
-font-size:34px;
+font-size:38px;
 margin-bottom:20px;
 }
 
 .start{
-background:white;
-color:#ff4e8a;
+padding:16px 40px;
 border:none;
-padding:15px 35px;
 border-radius:40px;
 font-size:20px;
 cursor:pointer;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
+background:linear-gradient(45deg,#ff4e8a,#ff7eb3);
+color:white;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* conteúdo principal */
+/* main */
 
 .main{
 display:none;
-padding:25px;
-max-width:650px;
+max-width:700px;
 margin:auto;
+padding:25px;
+text-align:center;
 }
 
 /* contador */
 
 .contador{
-margin:20px 0;
 font-size:22px;
-font-weight:bold;
+margin:20px 0;
 }
 
-/* slider */
+/* galeria */
 
-.slider{
-position:relative;
+.galeria{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 margin-top:20px;
 }
 
-.slider img{
+.galeria img{
 width:100%;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.4);
+transition:0.3s;
+}
+
+.galeria img:hover{
+transform:scale(1.05);
 }
 
 /* mensagem */
@@ -86,54 +102,42 @@ box-shadow:0 10px 30px rgba(0,0,0,0.4);
 margin-top:25px;
 font-size:20px;
 line-height:1.6;
-min-height:120px;
+min-height:140px;
 }
 
 /* player */
 
 .player{
 margin-top:20px;
-background:rgba(255,255,255,0.15);
-padding:15px;
-border-radius:15px;
-backdrop-filter:blur(10px);
 }
 
 .player button{
-background:white;
+background:#ff4e8a;
 border:none;
-padding:10px 20px;
+color:white;
+padding:12px 25px;
 border-radius:30px;
+font-size:16px;
 cursor:pointer;
-color:#ff4e8a;
 }
 
 /* corações */
 
 .heart{
 position:fixed;
-bottom:-10px;
 font-size:22px;
-animation:subir 6s linear infinite;
-opacity:0.8;
+animation: subir 5s linear;
 }
 
 @keyframes subir{
-
 0%{
 transform:translateY(0);
-opacity:0;
-}
-
-20%{
 opacity:1;
 }
-
 100%{
-transform:translateY(-110vh);
+transform:translateY(-100vh);
 opacity:0;
 }
-
 }
 
 </style>
@@ -142,12 +146,14 @@ opacity:0;
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <div class="intro">
 
 <h1>Marcus ❤️ Degnay</h1>
 
-<button class="start" onclick="iniciar()">
-Clique para ver sua surpresa
+<button class="start" onclick="start()">
+Clique para sua surpresa
 </button>
 
 </div>
@@ -158,26 +164,25 @@ Clique para ver sua surpresa
 
 <div class="contador" id="contador"></div>
 
-<div class="slider">
-
-<img id="foto" src="foto1.jpg">
-
-</div>
-
 <div class="mensagem" id="mensagem"></div>
 
+<div class="galeria">
+
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+<img src="foto4.jpg">
+
+</div>
+
 <div class="player">
-
-<button onclick="toggleMusica()">🎵 Música</button>
-
+<button onclick="toggleMusic()">🎵 Tocar música</button>
 </div>
 
 </div>
 
-<audio id="musica">
-
-<source src="musica.mp3" type="audio/mpeg">
-
+<audio id="music">
+<source src="musica.mp3">
 </audio>
 
 <script>
@@ -186,10 +191,9 @@ Clique para ver sua surpresa
 
 var inicio = new Date("2025-12-13");
 
-function atualizar(){
+function contador(){
 
 var agora = new Date();
-
 var diff = agora - inicio;
 
 var dias = Math.floor(diff/(1000*60*60*24));
@@ -197,29 +201,29 @@ var horas = Math.floor((diff/(1000*60*60))%24);
 var min = Math.floor((diff/(1000*60))%60);
 
 document.getElementById("contador").innerHTML =
-"Juntos há "+dias+" dias, "+horas+"h e "+min+"min ❤️";
+"Juntos há "+dias+" dias, "+horas+"h "+min+"min ❤️";
 
 }
 
-setInterval(atualizar,1000);
+setInterval(contador,1000);
+contador();
 
-atualizar();
+/* start */
 
-/* iniciar */
-
-function iniciar(){
+function start(){
 
 document.querySelector(".intro").style.display="none";
-
 document.getElementById("main").style.display="block";
 
-digitar();
+explodeHearts();
+typeText();
+music.play();
 
 }
 
-/* efeito digitação */
+/* mensagem digitando */
 
-var texto = `Degnay,
+var text = `Degnay,
 
 Desde o dia 13 de dezembro minha vida ficou mais bonita.
 
@@ -229,82 +233,103 @@ risadas e carinho.
 Obrigado por fazer parte da minha vida.
 
 Que nossa história continue crescendo
-com amor, parceria e felicidade.
+com amor e felicidade.
 
 ❤️`;
 
 var i=0;
 
-function digitar(){
+function typeText(){
 
-if(i < texto.length){
+if(i < text.length){
 
-document.getElementById("mensagem").innerHTML += texto.charAt(i);
-
+document.getElementById("mensagem").innerHTML += text.charAt(i);
 i++;
 
-setTimeout(digitar,40);
+setTimeout(typeText,35);
 
 }
 
 }
 
-/* slider fotos */
+/* música */
 
-var fotos=[
-"foto1.jpg",
-"foto2.jpg",
-"foto3.jpg",
-"foto4.jpg"
-];
+var music = document.getElementById("music");
 
-var f=0;
+function toggleMusic(){
 
-setInterval(function(){
-
-f++;
-
-if(f>=fotos.length){f=0;}
-
-document.getElementById("foto").src=fotos[f];
-
-},3500);
-
-/* musica */
-
-function toggleMusica(){
-
-var m=document.getElementById("musica");
-
-if(m.paused){
-
-m.play();
-
+if(music.paused){
+music.play();
 }else{
-
-m.pause();
-
+music.pause();
 }
 
 }
 
-/* corações */
+/* explosão corações */
 
-setInterval(function(){
+function explodeHearts(){
 
-var heart=document.createElement("div");
+for(let i=0;i<40;i++){
 
+let heart=document.createElement("div");
 heart.className="heart";
-
 heart.innerHTML="❤️";
 
 heart.style.left=Math.random()*100+"%";
+heart.style.bottom="0";
 
 document.body.appendChild(heart);
 
-setTimeout(()=>heart.remove(),6000);
+setTimeout(()=>heart.remove(),5000);
 
-},400);
+}
+
+}
+
+/* partículas fundo */
+
+var canvas=document.getElementById("bg");
+var ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+var particles=[];
+
+for(let i=0;i<80;i++){
+
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2
+});
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+
+particles.forEach(p=>{
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+
+p.y+=0.2;
+
+if(p.y>canvas.height)p.y=0;
+
+});
+
+requestAnimationFrame(draw);
+
+}
+
+draw();
 
 </script>
 
