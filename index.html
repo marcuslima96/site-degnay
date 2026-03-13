@@ -19,20 +19,31 @@ box-sizing:border-box;
 }
 
 body{
-
 height:100vh;
 overflow:hidden;
+font-family:'Inter',sans-serif;
+}
+
+/* camadas de fundo */
+
+.bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
 
 background-size:cover;
 background-position:center;
 
-transition:background-image 2.5s ease;
-
-font-family:'Inter',sans-serif;
+transition:opacity 2s ease;
 
 }
 
-/* camada escura e blur */
+#bg1{z-index:-2;}
+#bg2{z-index:-1;opacity:0;}
+
+/* overlay */
 
 .overlay{
 
@@ -63,13 +74,9 @@ padding:30px;
 /* título */
 
 h1{
-
 font-family:'Playfair Display',serif;
-
 font-size:40px;
-
 margin-bottom:25px;
-
 }
 
 /* botão */
@@ -91,14 +98,6 @@ border-radius:40px;
 cursor:pointer;
 
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
-
-transition:transform .2s;
-
-}
-
-button:hover{
-
-transform:scale(1.05);
 
 }
 
@@ -123,9 +122,7 @@ min-height:120px;
 .contador{
 
 margin-top:20px;
-
 font-size:20px;
-
 opacity:0.9;
 
 }
@@ -136,6 +133,9 @@ opacity:0.9;
 
 <body>
 
+<div id="bg1" class="bg"></div>
+<div id="bg2" class="bg"></div>
+
 <div class="overlay">
 
 <div id="intro">
@@ -143,9 +143,7 @@ opacity:0.9;
 <h1>Marcus ❤️ Degnay</h1>
 
 <button onclick="iniciar()">
-
 Clique para sua surpresa
-
 </button>
 
 </div>
@@ -157,14 +155,12 @@ Clique para sua surpresa
 </div>
 
 <audio id="musica">
-
 <source src="musica.mp3">
-
 </audio>
 
 <script>
 
-/* slideshow fundo */
+/* fotos */
 
 var fotos=[
 "foto1.jpg",
@@ -173,25 +169,35 @@ var fotos=[
 "foto4.jpg"
 ];
 
-var fotoIndex=0;
+var atual=0;
+var mostrandoBg1=true;
 
-function trocarFoto(){
+function slide(){
 
-document.body.style.backgroundImage="url('"+fotos[fotoIndex]+"')";
+var proxima=(atual+1)%fotos.length;
 
-fotoIndex++;
+if(mostrandoBg1){
 
-if(fotoIndex>=fotos.length){
+document.getElementById("bg2").style.backgroundImage="url("+fotos[proxima]+")";
+document.getElementById("bg2").style.opacity=1;
+document.getElementById("bg1").style.opacity=0;
 
-fotoIndex=0;
+}else{
+
+document.getElementById("bg1").style.backgroundImage="url("+fotos[proxima]+")";
+document.getElementById("bg1").style.opacity=1;
+document.getElementById("bg2").style.opacity=0;
 
 }
 
+mostrandoBg1=!mostrandoBg1;
+atual=proxima;
+
 }
 
-setInterval(trocarFoto,6000);
+document.getElementById("bg1").style.backgroundImage="url("+fotos[0]+")";
 
-trocarFoto();
+setInterval(slide,6000);
 
 /* contador dias */
 
@@ -214,15 +220,11 @@ setInterval(atualizar,1000);
 
 atualizar();
 
-/* texto digitando */
+/* mensagem digitando */
 
 var texto=`Degnay,
 
 Hoje completamos 3 meses juntos.
-
-Pode parecer pouco tempo,
-mas já foram meses cheios de momentos
-muito especiais para mim.
 
 Obrigado por esses 3 meses incríveis
 ao seu lado.
@@ -245,7 +247,7 @@ setTimeout(digitar,40);
 
 }
 
-/* iniciar surpresa */
+/* iniciar */
 
 function iniciar(){
 
