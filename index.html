@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Marcus ❤️ Degnay</title>
+<title>Marcus ❤️ Degnay • 4 meses</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
@@ -24,7 +24,7 @@ overflow:hidden;
 font-family:'Inter',sans-serif;
 }
 
-/* camadas de fundo */
+/* fundos */
 
 .bg{
 position:fixed;
@@ -32,10 +32,8 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-
 background-size:cover;
 background-position:center;
-
 transition:opacity 2s ease;
 }
 
@@ -45,11 +43,9 @@ transition:opacity 2s ease;
 /* overlay */
 
 .overlay{
-
 position:absolute;
 top:0;
 left:0;
-
 width:100%;
 height:100%;
 
@@ -58,23 +54,18 @@ backdrop-filter: blur(1px);
 
 display:flex;
 flex-direction:column;
-
 align-items:center;
 justify-content:center;
-
 text-align:center;
-
 color:white;
-
 padding:30px;
-
 }
 
 /* título */
 
 h1{
 font-family:'Playfair Display',serif;
-font-size:40px;
+font-size:34px;
 margin-bottom:25px;
 text-shadow:0 2px 10px rgba(0,0,0,0.6);
 }
@@ -82,52 +73,73 @@ text-shadow:0 2px 10px rgba(0,0,0,0.6);
 /* botão */
 
 button{
-
 background:linear-gradient(45deg,#ff4e8a,#ff7eb3);
-
 border:none;
-
 color:white;
-
 padding:15px 35px;
-
 font-size:18px;
-
 border-radius:40px;
-
 cursor:pointer;
-
 box-shadow:0 10px 30px rgba(0,0,0,0.4);
+transition:all .25s ease;
+}
 
+button:hover{
+transform:scale(1.06);
 }
 
 /* mensagem */
 
 .mensagem{
-
 max-width:700px;
-
 font-size:22px;
-
-line-height:1.6;
-
+line-height:1.8;
+letter-spacing:0.5px;
 margin-top:25px;
-
 min-height:120px;
-
 text-shadow:0 2px 10px rgba(0,0,0,0.6);
-
 }
 
 /* contador */
 
 .contador{
-
 margin-top:20px;
 font-size:20px;
 opacity:0.9;
 text-shadow:0 2px 10px rgba(0,0,0,0.6);
+}
 
+/* corações */
+
+.heart{
+position:fixed;
+bottom:-10px;
+font-size:18px;
+animation: subir 6s linear;
+opacity:0.8;
+}
+
+@keyframes subir{
+0%{transform:translateY(0); opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-100vh); opacity:0;}
+}
+
+/* brilho */
+
+.sparkle{
+position:fixed;
+width:4px;
+height:4px;
+background:white;
+border-radius:50%;
+opacity:0.7;
+animation: brilho 3s infinite;
+}
+
+@keyframes brilho{
+0%,100%{opacity:0;}
+50%{opacity:1;}
 }
 
 </style>
@@ -143,7 +155,7 @@ text-shadow:0 2px 10px rgba(0,0,0,0.6);
 
 <div id="intro">
 
-<h1>Marcus ❤️ Degnay</h1>
+<h1>Marcus ❤️ Degnay • 4 meses</h1>
 
 <button onclick="iniciar()">
 Clique para sua surpresa
@@ -163,13 +175,15 @@ Clique para sua surpresa
 
 <script>
 
-/* fotos */
+/* fotos (adicione quantas quiser) */
 
 var fotos=[
 "foto1.jpg",
 "foto2.jpg",
 "foto3.jpg",
-"foto4.jpg"
+"foto4.jpg",
+"foto5.jpg",
+"foto6.jpg"
 ];
 
 var atual=0;
@@ -180,17 +194,13 @@ function slide(){
 var proxima=(atual+1)%fotos.length;
 
 if(mostrandoBg1){
-
-document.getElementById("bg2").style.backgroundImage="url("+fotos[proxima]+")";
-document.getElementById("bg2").style.opacity=1;
-document.getElementById("bg1").style.opacity=0;
-
+bg2.style.backgroundImage="url("+fotos[proxima]+")";
+bg2.style.opacity=1;
+bg1.style.opacity=0;
 }else{
-
-document.getElementById("bg1").style.backgroundImage="url("+fotos[proxima]+")";
-document.getElementById("bg1").style.opacity=1;
-document.getElementById("bg2").style.opacity=0;
-
+bg1.style.backgroundImage="url("+fotos[proxima]+")";
+bg1.style.opacity=1;
+bg2.style.opacity=0;
 }
 
 mostrandoBg1=!mostrandoBg1;
@@ -198,41 +208,40 @@ atual=proxima;
 
 }
 
-document.getElementById("bg1").style.backgroundImage="url("+fotos[0]+")";
+bg1.style.backgroundImage="url("+fotos[0]+")";
 
 setInterval(slide,6000);
 
-/* contador dias */
+/* contador */
 
 var inicio = new Date("2025-12-13");
 
 function atualizar(){
 
 var agora=new Date();
-
 var diff=agora-inicio;
-
 var dias=Math.floor(diff/(1000*60*60*24));
 
-document.getElementById("contador").innerHTML=
-"Já são "+dias+" dias ao seu lado ❤️";
+contador.innerHTML="Já são "+dias+" dias ao seu lado ❤️";
 
 }
 
 setInterval(atualizar,1000);
-
 atualizar();
 
-/* texto digitando */
+/* mensagem nova */
 
-var texto=`Deg,
+var texto=`Degnay,
 
-Hoje completamos 3 meses juntos.
+Hoje completamos 4 meses juntos.
 
-Obrigado por fazer parte da minha vida
-e por tornar esses dias tão especiais.
+Cada dia ao seu lado tem sido especial,
+e eu sou muito grato por tudo que estamos vivendo.
 
-Amo-te ❤️`;
+Obrigado por esses momentos incríveis
+e por fazer parte da minha vida.
+
+❤️`;
 
 var pos=0;
 
@@ -240,7 +249,7 @@ function digitar(){
 
 if(pos < texto.length){
 
-document.getElementById("mensagem").innerHTML += texto.charAt(pos);
+mensagem.innerHTML += texto.charAt(pos);
 
 pos++;
 
@@ -250,17 +259,52 @@ setTimeout(digitar,40);
 
 }
 
-/* iniciar surpresa */
+/* iniciar */
 
 function iniciar(){
 
-document.getElementById("intro").style.display="none";
+intro.style.display="none";
 
-document.getElementById("musica").play();
+musica.play();
 
-digitar();
+setTimeout(digitar,1000);
 
 }
+
+/* corações */
+
+setInterval(function(){
+
+var h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="❤️";
+
+h.style.left=Math.random()*100+"%";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),6000);
+
+},800);
+
+/* brilhos */
+
+setInterval(function(){
+
+var s=document.createElement("div");
+
+s.className="sparkle";
+
+s.style.left=Math.random()*100+"%";
+s.style.top=Math.random()*100+"%";
+
+document.body.appendChild(s);
+
+setTimeout(()=>s.remove(),3000);
+
+},500);
 
 </script>
 
