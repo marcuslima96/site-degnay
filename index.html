@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Marcus ❤️ Degnay • 4 meses</title>
+<title>Marcus ❤️ Deg • 4 meses</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
@@ -25,7 +25,7 @@ font-family:'Inter',sans-serif;
 background:black;
 }
 
-/* FUNDO */
+/* fundo */
 
 .bg{
 position:fixed;
@@ -42,7 +42,7 @@ filter: blur(12px) brightness(0.4);
 #bg1{z-index:-3;}
 #bg2{z-index:-2;opacity:0;}
 
-/* MODO STORY (PC) */
+/* story (PC) */
 
 .story{
 position:fixed;
@@ -88,7 +88,7 @@ justify-content:center;
 
 text-align:center;
 color:white;
-padding:25px;
+padding:20px;
 }
 
 /* título */
@@ -121,36 +121,56 @@ transform:scale(1.05);
 /* mensagem */
 
 .mensagem{
-max-width:500px;
+width:100%;
+max-width:360px;
+
 font-size:20px;
 line-height:1.8;
 letter-spacing:0.5px;
-margin-top:20px;
+
+margin:20px auto 0 auto;
+
 min-height:120px;
-text-shadow:0 2px 15px rgba(0,0,0,0.7);
+
+text-align:center;
+
+text-shadow:0 4px 20px rgba(0,0,0,0.85);
 }
 
 /* contador */
 
 .contador{
-margin-top:15px;
+width:100%;
+max-width:360px;
+
+margin:15px auto 0 auto;
+
 font-size:18px;
+
 opacity:0.9;
-text-shadow:0 2px 15px rgba(0,0,0,0.7);
+
+text-align:center;
+
+text-shadow:0 4px 20px rgba(0,0,0,0.85);
 }
 
-/* celular volta pro modo normal */
+/* ajuste PC */
+
+@media (min-width:768px){
+.mensagem{
+font-size:18px;
+}
+}
+
+/* celular remove story */
 
 @media (max-width:768px){
-
 .story{
 display:none;
 }
-
 .bg{
 filter:none;
 }
-
 }
 
 /* corações */
@@ -191,11 +211,9 @@ animation:brilho 3s infinite;
 
 <body>
 
-<!-- fundo blur -->
 <div id="bg1" class="bg"></div>
 <div id="bg2" class="bg"></div>
 
-<!-- story -->
 <div class="story">
 <div id="s1" class="story-img"></div>
 <div id="s2" class="story-img"></div>
@@ -205,7 +223,7 @@ animation:brilho 3s infinite;
 
 <div id="intro">
 
-<h1>Marcus ❤️ Degnay • 4 meses</h1>
+<h1>Marcus ❤️ Deg • 4 meses</h1>
 
 <button onclick="iniciar()">
 Clique para sua surpresa
@@ -243,7 +261,7 @@ function slide(){
 
 var prox=(atual+1)%fotos.length;
 
-/* fundo blur */
+/* fundo */
 if(toggle){
 bg2.style.backgroundImage="url("+fotos[prox]+")";
 bg2.style.opacity=1;
@@ -291,12 +309,14 @@ atualizar();
 
 /* mensagem */
 
-var texto=`Degnay,
+var texto=`Deg,
 
 Hoje completamos 4 meses juntos.
 
-Obrigado por esses dias
-tão especiais ao seu lado.
+Cada dia ao seu lado tem sido especial,
+e eu sou muito grato por tudo que estamos vivendo.
+
+Te amo. BITIS 🫰
 
 ❤️`;
 
